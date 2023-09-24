@@ -1,0 +1,22 @@
+@import "./abstracts/variables";
+@import "./abstracts/mixins";
+
+// Layout
+@import "./layout/navbar";
+@import "./layout/footer";
+
+// Components
+@import "./components/button";
+@import "./components/input";
+@import "./components/avatar";
+@import "./components/message";
+@import "./components/modal";
+
+// Pages
+@import "./pages/authPage";
+@import "./pages/home";
+@import "./pages/group";
+
+body{
+    background-color: $body-bg-color;
+}

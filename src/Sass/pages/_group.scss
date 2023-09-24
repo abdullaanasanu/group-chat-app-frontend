@@ -1,0 +1,98 @@
+.group-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background-color: $secondary-color;
+  color: $text-white;
+
+  h3 {
+    margin: 0;
+  }
+
+  p {
+    margin: 0;
+  }
+}
+
+.group-container {
+  display: flex;
+
+  .group-chat {
+    width: 100%;
+    height: calc(100dvh - 45px - 66px);
+    position: relative;
+
+    .chat-input {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      background-color: $card-bg-color;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: $message-shadow;
+
+      .form-control {
+        width: 100%;
+        margin: 10px 20px;
+      }
+
+      .btn {
+        margin-right: 20px;
+      }
+    }
+  }
+
+  .group-users {
+    min-width: 350px;
+    background-color: $card-bg-color;
+    box-shadow: $shadow;
+    z-index: 10;
+
+    .user-item {
+      display: flex;
+      align-items: center;
+      padding: 10px 20px;
+      border-bottom: 1px solid $border-color;
+
+      .user-avatar {
+        width: 40px;
+        height: 40px;
+        font-size: 24px;
+        margin-right: 10px;
+      }
+
+      .user-name {
+        margin: 0;
+        color: $text-color;
+      }
+    }
+
+    @include responsive($tablet) {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100dvh;
+      z-index: 10;
+      background-color: #ffffff;
+      box-shadow: 0px 1px 3px #dedede;
+      transform: translateX(100%);
+      transition: all 0.3s ease-in-out;
+    }
+
+    @include responsive($desktop) {
+      min-width: 280px;
+    }
+    
+    // hide users list on click
+    &.hide-users {
+      width: 0px;
+      min-width: 0px;
+      transform: translateX(100%);
+    }
+    
+    
+  }
+}

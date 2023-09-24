@@ -1,0 +1,17 @@
+.form-control{
+    border-radius: 20px;
+    border: 1px solid $input-border-color;
+    padding: 10px 20px;
+    font-size: 14px;
+    color: $input-text-color;
+    &:focus{
+        border-color: $primary-color;
+        box-shadow: none;
+    }
+    &.is-invalid{
+        border-color: $danger;
+    }
+    &.is-valid{
+        border-color: $success;
+    }
+}

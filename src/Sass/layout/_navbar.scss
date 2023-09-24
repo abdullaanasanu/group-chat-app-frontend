@@ -1,0 +1,42 @@
+nav.navbar{
+    background-color: $navbar-color;
+    border-radius: 0;
+    border: none;
+    margin-bottom: 0;
+    padding: 8px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    // box-shadow: $shadow;
+    .navbar-brand{
+        color: $primary-color;
+        font-size: 1.5em;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        .brand-logo{
+            height: 50px;
+        }
+
+        @include responsive($mobile-large){
+            font-size: 1.2em;
+        }
+    }
+
+    .action{
+        margin-left: auto;
+        .btn{
+            margin-left: 10px;
+
+            @include responsive($mobile-large){
+                margin-left: 5px;
+                padding: 8px 15px;
+            }
+        }
+    }
+
+    @include responsive($mobile-large){
+        padding: 8px 10px;
+    }
+}

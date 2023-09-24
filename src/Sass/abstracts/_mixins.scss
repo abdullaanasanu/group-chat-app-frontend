@@ -1,0 +1,30 @@
+@mixin page-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin custom-scrollbar {
+  scrollbar-width: auto;
+  scrollbar-color: #798299 transparent;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #bac2d8;
+    border-radius: 10px;
+    border: none;
+  }
+}
+
+@mixin responsive($breakpoint) {
+  @media (max-width: $breakpoint) {
+    @content;
+  }
+}

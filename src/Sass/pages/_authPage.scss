@@ -1,0 +1,29 @@
+.auth-page {
+  @include page-center;
+  min-height: calc(100dvh - 120px);
+
+  .auth-form {
+    background-color: $card-bg-color;
+    box-shadow: $shadow;
+    padding: 30px 20px;
+    border-radius: 15px;
+    text-align: center;
+
+    h1{
+        margin-bottom: 20px;
+        margin-top: 0px;
+    }
+
+    input.form-control{
+        margin-bottom: 15px;
+        min-width: 300px;
+    }
+
+    .btn{
+        width: 100%;
+        font-weight: 600;
+        font-size: 1rem;
+        margin-bottom: 10px;
+    }
+  }
+}

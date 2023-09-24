@@ -1,0 +1,58 @@
+.home-page{
+    margin: 20px 40px;
+
+    .home-page-header{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 20px 0px;
+        color: $text-color;
+
+        h1{
+            margin: 0;
+        }
+    }
+
+    .groups-list{
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-gap: 20px;
+
+        a{
+            text-decoration: none;
+        }
+
+        .group-item{
+            background-color: $card-bg-color;
+            box-shadow: $shadow;
+            padding: 15px 20px;
+            border-radius: 15px;
+
+            h3{
+                margin: 0px 0px 6px 0px;
+                color: $primary-color;
+            }
+
+            p{
+                margin: 0;
+                color: $text-color;
+            }
+        }
+
+        @include responsive($desktop){
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        @include responsive($tablet){
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @include responsive($mobile-large){
+            grid-template-columns: repeat(1, 1fr);
+        }
+    }
+
+    @include responsive($mobile-large){
+        margin: 10px 20px;
+    }   
+}
