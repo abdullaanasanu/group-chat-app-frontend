@@ -55,9 +55,12 @@ export default function LoginPage() {
               />
             </div>
             <button className="btn btn-primary" type="submit">Login</button>
-            <Link to="/sign-up">
+            <p>
+              If you don't have an account, <Link to="/sign-up">Sign Up</Link>
+            </p>
+            {/* <Link to="/sign-up">
               <button className="btn btn-primary-rounded" type="button">Sign Up</button>
-            </Link>
+            </Link> */}
           </form>
         </div>
       </div>

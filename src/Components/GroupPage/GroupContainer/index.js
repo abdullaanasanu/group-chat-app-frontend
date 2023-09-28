@@ -52,10 +52,7 @@ export default function GroupContainer() {
       );
     });
     return () => {
-      socket.disconnect({
-        token,
-        groupId: id,
-      });
+      socket.disconnect();
     };
   }, [socket]);
 

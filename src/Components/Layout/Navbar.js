@@ -1,9 +1,13 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useUser } from "../../Contexts/userContext";
 
 export default function Navbar() {
   const { isLoggedIn, logout } = useUser();
+  const location = useLocation();
+
+  console.log(location);
+
   return (
     <nav className="navbar bg-primary">
       <Link className="navbar-brand" to={isLoggedIn ? "/" : "/login"}>
@@ -13,12 +17,16 @@ export default function Navbar() {
       <div className="action">
         {!isLoggedIn ? (
           <>
-            <Link to="/login">
-              <button className="btn btn-primary">Login</button>
-            </Link>
-            <Link to="/sign-up">
-              <button className="btn btn-primary">Sign Up</button>
-            </Link>
+            {location.pathname === "/sign-up" && (
+              <Link to="/login">
+                <button className="btn btn-primary">Login</button>
+              </Link>
+            )}
+            {location.pathname === "/login" && (
+              <Link to="/sign-up">
+                <button className="btn btn-primary">Sign Up</button>
+              </Link>
+            )}
           </>
         ) : (
           <>

@@ -74,11 +74,14 @@ export default function SignUpPage() {
             <button className="btn btn-primary" type="submit">
               Sign Up
             </button>
-            <Link to="/login">
+            <p>
+              If you already have an account, <Link to="/login">Login</Link>
+            </p>
+            {/* <Link to="/login">
               <button className="btn btn-primary-rounded" type="button">
                 Login
               </button>
-            </Link>
+            </Link> */}
           </form>
         </div>
       </div>
