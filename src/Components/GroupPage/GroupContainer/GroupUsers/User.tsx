@@ -1,6 +1,10 @@
 import React from "react";
 
-export default function User({ participant }) {
+interface IUserProps {
+  participant: IChatParticipant | { user: any };
+}
+
+const User = ({ participant }: IUserProps) => {
   return (
     <>
       <div className="user-item">
@@ -9,4 +13,6 @@ export default function User({ participant }) {
       </div>
     </>
   );
-}
+};
+
+export default User;

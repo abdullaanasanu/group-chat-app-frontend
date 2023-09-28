@@ -11,31 +11,34 @@ import {
   setParticipantsList,
 } from "../Redux/group/chatSlice";
 
-export default function GroupPage() {
-  const id = useParams().id;
-  const {
-    groupInfo: group,
-    chatList: chat,
-    participantsList: participants,
-  } = useSelector((state) => state.chat);
+const GroupPage = () => {
+  const { id } = useParams<{ id: string }>();
   const dispatch = useDispatch();
 
   const { token } = useUser();
 
   useEffect(() => {
-    axios
-      .get(process.env.REACT_APP_API_URL + "/group/" + id, {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      })
-      .then((response) => {
-        console.log(response);
-        dispatch(setGroupInfo(response.data.group));
-        dispatch(setChatList(response.data.group.chat));
-        dispatch(setParticipantsList(response.data.group.participants));
-      });
+    fetchGroupInfo();
   }, [id]);
+
+  const fetchGroupInfo = async () => {
+    try {
+      const response = await axios.get(
+        process.env.REACT_APP_API_URL + "/group/" + id,
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
+      console.log(response);
+      dispatch(setGroupInfo(response.data.group));
+      dispatch(setChatList(response.data.group.chat));
+      dispatch(setParticipantsList(response.data.group.participants));
+    } catch (error: any) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="group-page">
@@ -43,4 +46,6 @@ export default function GroupPage() {
       <GroupContainer />
     </div>
   );
-}
+};
+
+export default GroupPage;

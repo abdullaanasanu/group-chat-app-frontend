@@ -1,7 +1,7 @@
 // This function takes a MongoDB timestamp and returns a formatted date string
-export default function formatDateFromTimestamp(timestamp) {
-  const mongoDate = new Date(timestamp);
-  const currentDate = new Date();
+export default function formatDateFromTimestamp(timestamp: string) {
+  const mongoDate: Date = new Date(timestamp);
+  const currentDate: Date = new Date();
 
   // Check if the date is today
   if (
@@ -21,7 +21,7 @@ export default function formatDateFromTimestamp(timestamp) {
 
   // Calculate the difference in days
   const timeDifference = Math.floor(
-    (currentDate - mongoDate) / (1000 * 60 * 60 * 24)
+    (currentDate.getTime() - mongoDate.getTime()) / (1000 * 60 * 60 * 24)
   );
 
   // Check if the date is yesterday
@@ -37,6 +37,10 @@ export default function formatDateFromTimestamp(timestamp) {
   }
 
   // If it's not today or yesterday, return the actual date
-  const options = { year: "numeric", month: "long", day: "numeric" };
+  const options: Intl.DateTimeFormatOptions = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
   return mongoDate.toLocaleDateString(undefined, options);
 }

@@ -2,11 +2,9 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useUser } from "../../Contexts/userContext";
 
-export default function Navbar() {
+const Navbar = () => {
   const { isLoggedIn, logout } = useUser();
   const location = useLocation();
-
-  console.log(location);
 
   return (
     <nav className="navbar bg-primary">
@@ -29,13 +27,13 @@ export default function Navbar() {
             )}
           </>
         ) : (
-          <>
-            <button className="btn btn-primary-rounded" onClick={logout}>
-              Logout
-            </button>
-          </>
+          <button className="btn btn-primary-rounded" onClick={logout}>
+            Logout
+          </button>
         )}
       </div>
     </nav>
   );
-}
+};
+
+export default Navbar;

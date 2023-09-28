@@ -1,3 +1,4 @@
+import React from "react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 
 import Layout from "./Components/Layout";
@@ -14,8 +15,9 @@ import store from "./Redux/store";
 import ProctectRoutes from "./Components/ProctectRoutes";
 import { Toaster } from "react-hot-toast";
 
-function App() {
+const App = () => {
   return (
+    
     <Provider store={store}>
       <Router>
         <UserProvider>
@@ -36,6 +38,6 @@ function App() {
       </Router>
     </Provider>
   );
-}
+};
 
 export default App;

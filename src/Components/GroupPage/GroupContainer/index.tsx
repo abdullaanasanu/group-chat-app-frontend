@@ -1,27 +1,23 @@
 import React, { useEffect, useRef, useState } from "react";
 import GroupChat from "./GroupChat";
 import GroupUsers from "./GroupUsers";
-import io from "socket.io-client";
+import io, {Socket} from "socket.io-client";
 import { useUser } from "../../../Contexts/userContext";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addChat, addParticipants, removeParticipants, setChatList, setParticipantsList } from "../../../Redux/group/chatSlice";
 
-export default function GroupContainer() {
+const GroupContainer = () => {
   const id = useParams().id;
   const { token } = useUser();
 
-  const {
-    chatList: chat,
-    participantsList: participants,
-  } = useSelector((state) => state.chat);
   const dispatch = useDispatch();
 
-  const [socketConnected, setSocketConnected] = useState(false);
-  const [socket, setSocket] = useState(null);
+  const [socketConnected, setSocketConnected] = useState<boolean>(false);
+  const [socket, setSocket] = useState<any>(null);
 
   useEffect(() => {
-    setSocket(io(process.env.REACT_APP_SOCKET_URL));
+    setSocket(io(process.env.REACT_APP_SOCKET_URL as string));
   }, []);
 
   useEffect(() => {
@@ -32,21 +28,13 @@ export default function GroupContainer() {
     socket.on("connected", () => {
       setSocketConnected(true);
     });
-    socket.on("new message", (message) => {
+    socket.on("new message", (message: IChatMessage) => {
       dispatch(addChat(message));
-      // dispatch(setChatList([...chat, message]));
     });
-    socket.on("member joined", (participant) => {
-      console.log("member joined", participant);
+    socket.on("member joined", (participant: IChatParticipant) => {
       dispatch(addParticipants(participant));
     });
-    socket.on("member left", (participant) => {
-      console.log("member left", participant);
-      console.log("participants", participants);
-      // let remainingParticipants = participants.filter(
-      //   (p) => p.user._id !== participant.user._id
-      // );
-      // console.log("remaining participants", remainingParticipants);
+    socket.on("member left", (participant: IChatParticipant) => {
       dispatch(
         removeParticipants(participant)
       );
@@ -56,7 +44,7 @@ export default function GroupContainer() {
     };
   }, [socket]);
 
-  const sendMessage = (message) => {
+  const sendMessage = (message: string) => {
     if (socketConnected) {
       socket.emit(
         "new message",
@@ -81,3 +69,5 @@ export default function GroupContainer() {
     </div>
   );
 }
+
+export default GroupContainer;

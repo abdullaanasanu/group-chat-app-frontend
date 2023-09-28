@@ -1,7 +1,11 @@
 import React from "react";
 import formatDateFromTimestamp from "../../../../Utils/Time";
 
-export default function RecievedMessage({ message }) {
+interface IRecievedMessageProps {
+  message: IChatMessage;
+}
+
+const RecievedMessage = ({ message }: IRecievedMessageProps) => {
   return (
     <div className="chat-message">
       <div className="user-avatar">{message.user.name[0]}</div>
@@ -19,3 +23,5 @@ export default function RecievedMessage({ message }) {
     </div>
   );
 }
+
+export default RecievedMessage;

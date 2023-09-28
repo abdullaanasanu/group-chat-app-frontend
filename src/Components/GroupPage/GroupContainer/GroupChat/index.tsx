@@ -1,30 +1,39 @@
-import React, { createRef, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import RecievedMessage from "./RecievedMessage";
 import SendMessage from "./SendMessage";
 import { useUser } from "../../../../Contexts/userContext";
 import { useSelector } from "react-redux";
 
-export default function GroupChat({ sendMessage, }) {
-  const chatRef = createRef();
-  const { user } = useUser();
-  const { chatList: chat } = useSelector((state) => state.chat);
-  const { register, handleSubmit, errors, reset } = useForm();
+interface IGroupChatProps {
+  sendMessage: (message: string) => void;
+}
 
-  const onSubmit = (data) => {
+interface IChatForm {
+  message: string;
+}
+
+const GroupChat = ({ sendMessage }: IGroupChatProps) => {
+  const chatRef = useRef<HTMLDivElement>(null);
+  const { user } = useUser();
+  const { chatList: chat } = useSelector((state: any) => state.chat);
+  const { register, handleSubmit, reset } = useForm<IChatForm>();
+
+  const onSubmit = (data: IChatForm) => {
     console.log(data);
     sendMessage(data.message);
     reset();
   };
 
   useEffect(() => {
+    if (!chatRef.current) return;
     chatRef.current.scrollTop = chatRef.current.scrollHeight;
   }, [chat]);
 
   return (
     <div className="group-chat">
       <div className="chat-messages" ref={chatRef}>
-        {chat.map((message) => (
+        {chat.map((message: IChatMessage) => (
           <>
             {message.user._id == user.id ? (
               <SendMessage message={message} key={message._id} />
@@ -48,4 +57,6 @@ export default function GroupChat({ sendMessage, }) {
       </form>
     </div>
   );
-}
+};
+
+export default GroupChat;

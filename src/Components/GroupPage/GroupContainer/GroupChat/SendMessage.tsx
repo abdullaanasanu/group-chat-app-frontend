@@ -1,7 +1,11 @@
 import React from "react";
 import formatDateFromTimestamp from "../../../../Utils/Time";
 
-export default function SendMessage({ message }) {
+interface ISendMessageProps {
+  message: IChatMessage;
+}
+
+const SendMessage = ({ message }: ISendMessageProps) => {
   return (
     <div className="chat-message send">
       <div className="chat-message-container">
@@ -13,3 +17,5 @@ export default function SendMessage({ message }) {
     </div>
   );
 }
+
+export default SendMessage;

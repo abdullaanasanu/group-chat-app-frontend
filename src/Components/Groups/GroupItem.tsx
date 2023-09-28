@@ -1,7 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function GroupItem({ group }) {
+interface GroupItemProps {
+  group: IGroupItem;
+}
+
+const GroupItem = ({ group }: GroupItemProps) => {
   return (
     <Link to={"/group/" + group?._id}>
       <div className="group-item">
@@ -11,3 +15,5 @@ export default function GroupItem({ group }) {
     </Link>
   );
 }
+
+export default GroupItem;

@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import Groups from "../Components/Groups";
 import CreateGroup from "../Components/Modal/CreateGroup";
 
-export default function HomePage() {
-  const [showCreateGroupModal, setShowCreateGroupModal] = React.useState(false);
+const HomePage = () => {
+  const [showCreateGroupModal, setShowCreateGroupModal] =
+    useState<boolean>(false);
 
   return (
     <div className="home-page">
@@ -12,6 +13,7 @@ export default function HomePage() {
         <button
           className="btn btn-primary"
           onClick={() => setShowCreateGroupModal(true)}
+          type="button"
         >
           Create
         </button>
@@ -23,4 +25,6 @@ export default function HomePage() {
       />
     </div>
   );
-}
+};
+
+export default HomePage;

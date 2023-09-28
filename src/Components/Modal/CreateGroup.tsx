@@ -4,29 +4,42 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../../Contexts/userContext";
 
-export default function CreateGroup({ show, setShow }) {
+interface ICreateGroupProps {
+  show: boolean;
+  setShow: (show: boolean) => void;
+}
+
+interface ICreateGroupForm {
+  name: string;
+}
+
+const CreateGroup = ({ show, setShow }: ICreateGroupProps) => {
   const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm();
+  } = useForm<ICreateGroupForm>();
   const { token } = useUser();
 
-  const onSubmit = (data) => {
-    console.log(data);
-    axios
-      .post(process.env.REACT_APP_API_URL + "/group/create", data, {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      })
-      .then((response) => {
-        console.log(response);
-        setShow(false);
-        navigate("/group/" + response.data.group._id);
-      });
+  const onSubmit = async (data: ICreateGroupForm) => {
+    try {
+      const response = await axios.post(
+        process.env.REACT_APP_API_URL + "/group/create",
+        data,
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
+      console.log(response);
+      setShow(false);
+      navigate("/group/" + response.data.group._id);
+    } catch (error: any) {
+      console.log(error);
+    }
   };
 
   return (
@@ -54,3 +67,5 @@ export default function CreateGroup({ show, setShow }) {
     </div>
   );
 }
+
+export default CreateGroup;

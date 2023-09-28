@@ -6,14 +6,19 @@ import { Link, useNavigate } from "react-router-dom";
 import { useUser } from "../Contexts/userContext";
 import toast from "react-hot-toast";
 
-export default function SignUpPage() {
-  let navigate = useNavigate();
+interface ILoginForm {
+  email: string;
+  password: string;
+}
+
+const LoginPage = () => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm();
+  } = useForm<ILoginForm>();
   const { isLoggedIn, login } = useUser();
 
   useEffect(() => {
@@ -22,37 +27,26 @@ export default function SignUpPage() {
     }
   }, [isLoggedIn]);
 
-  const onSubmit = (data) => {
-    console.log(data);
-    axios
-      .post(process.env.REACT_APP_API_URL + "/user/register", data)
-      .then((response) => {
-        console.log(response);
-        login(response.data);
-        // localStorage.setItem("token", response.data.token);
-        navigate("/");
-      })
-      .catch((error) => {
-        console.log(error);
-        toast.error(error.response.data.message);
-      });
+  const onSubmit = async (data: ILoginForm) => {
+    try {
+      const response = await axios.post(
+        process.env.REACT_APP_API_URL + "/user/login",
+        data
+      );
+      console.log(response);
+      login(response.data);
+      navigate("/");
+    } catch (error: any) {
+      toast.error(error.response.data.message);
+    }
   };
 
   return (
     <>
       <div className="auth-page">
         <div className="auth-form">
-          <h1>Sign Up</h1>
+          <h1>Login</h1>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="form-group">
-              <input
-                type="text"
-                id="name"
-                className="form-control"
-                placeholder="Name"
-                {...register("name", { required: true })}
-              />
-            </div>
             <div className="form-group">
               <input
                 type="email"
@@ -72,20 +66,17 @@ export default function SignUpPage() {
               />
             </div>
             <button className="btn btn-primary" type="submit">
-              Sign Up
+              Login
             </button>
             <p>
-              If you already have an account, <Link to="/login">Login</Link>
+              If you don't have an account, <Link to="/sign-up">Sign Up</Link>
             </p>
-            {/* <Link to="/login">
-              <button className="btn btn-primary-rounded" type="button">
-                Login
-              </button>
-            </Link> */}
           </form>
         </div>
       </div>
       <Footer />
     </>
   );
-}
+};
+
+export default LoginPage;

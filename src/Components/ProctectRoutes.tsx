@@ -1,12 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect, ReactNode } from "react";
 import { useUser } from "../Contexts/userContext";
 import { useNavigate } from "react-router-dom";
 
-export default function ProctectRoutes({ children }) {
+interface IProctectRoutesProps {
+  children: ReactNode;
+}
+
+const ProctectRoutes = ({ children }: IProctectRoutesProps) => {
   const { isLoggedIn } = useUser();
   const navigate = useNavigate();
-
-  console.log("isLoggedIn", isLoggedIn);
 
   useEffect(() => {
     if (!isLoggedIn) {
@@ -15,7 +17,10 @@ export default function ProctectRoutes({ children }) {
   }, []);
 
   if (isLoggedIn) {
-    return <>{children}</>;  
+    return <>{children}</>;
   }
-  
-}
+
+  return <></>;
+};
+
+export default ProctectRoutes;
