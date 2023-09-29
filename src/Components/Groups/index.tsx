@@ -4,6 +4,7 @@ import axios from "axios";
 import { useUser } from "../../Contexts/userContext";
 import { useDispatch, useSelector } from "react-redux";
 import { setGroupList } from "../../Redux/group/groupSlice";
+import { Grid } from "@radix-ui/themes";
 
 const Groups = () => {
   const groups = useSelector((state: any) => state.group.groupList);
@@ -32,12 +33,18 @@ const Groups = () => {
   };
 
   return (
-    <div className="groups-list">
+    <Grid columns={{
+      initial: '1',
+      xs: '2',
+      sm: '3',
+      md: '3',
+      lg: '4'
+    }} gap="3" >
       {groups.map((group: IGroupItem) => (
         <GroupItem key={group._id} group={group} />
       ))}
-    </div>
+    </Grid>
   );
-}
+};
 
 export default Groups;

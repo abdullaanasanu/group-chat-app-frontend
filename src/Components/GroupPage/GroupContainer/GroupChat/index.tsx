@@ -4,6 +4,8 @@ import RecievedMessage from "./RecievedMessage";
 import SendMessage from "./SendMessage";
 import { useUser } from "../../../../Contexts/userContext";
 import { useSelector } from "react-redux";
+import { Card, IconButton, TextField } from "@radix-ui/themes";
+import { PaperPlaneIcon } from "@radix-ui/react-icons";
 
 interface IGroupChatProps {
   sendMessage: (message: string) => void;
@@ -35,7 +37,7 @@ const GroupChat = ({ sendMessage }: IGroupChatProps) => {
       <div className="chat-messages" ref={chatRef}>
         {chat.map((message: IChatMessage) => (
           <>
-            {message.user._id == user.id ? (
+            {message.user._id === user.id ? (
               <SendMessage message={message} key={message._id} />
             ) : (
               <RecievedMessage message={message} key={message._id} />
@@ -43,8 +45,20 @@ const GroupChat = ({ sendMessage }: IGroupChatProps) => {
           </>
         ))}
       </div>
-      <form className="chat-input" onSubmit={handleSubmit(onSubmit)}>
-        <input
+      <Card>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <TextField.Root radius="full">
+            <TextField.Input
+              placeholder="Type a message..."
+              {...register("message", { required: true })}
+            />
+            <TextField.Slot>
+              <IconButton size="1" variant="ghost">
+                <PaperPlaneIcon height={16} width={16} />
+              </IconButton>
+            </TextField.Slot>
+          </TextField.Root>
+          {/* <input
           type="text"
           placeholder="Type a message..."
           className="form-control"
@@ -53,8 +67,9 @@ const GroupChat = ({ sendMessage }: IGroupChatProps) => {
         />
         <button className="btn btn-primary" type="submit">
           Send
-        </button>
-      </form>
+        </button> */}
+        </form>
+      </Card>
     </div>
   );
 };

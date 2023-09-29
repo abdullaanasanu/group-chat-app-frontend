@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import GroupInfo from "../Components/GroupPage/GroupInfo";
 import GroupContainer from "../Components/GroupPage/GroupContainer";
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useUser } from "../Contexts/userContext";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   setChatList,
   setGroupInfo,

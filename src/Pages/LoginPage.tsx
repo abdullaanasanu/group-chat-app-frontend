@@ -5,6 +5,8 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useUser } from "../Contexts/userContext";
 import toast from "react-hot-toast";
+import { Button, TextField } from "@radix-ui/themes";
+import { EnvelopeClosedIcon, LockClosedIcon } from "@radix-ui/react-icons";
 
 interface ILoginForm {
   email: string;
@@ -13,12 +15,7 @@ interface ILoginForm {
 
 const LoginPage = () => {
   const navigate = useNavigate();
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm<ILoginForm>();
+  const { register, handleSubmit } = useForm<ILoginForm>();
   const { isLoggedIn, login } = useUser();
 
   useEffect(() => {
@@ -47,27 +44,35 @@ const LoginPage = () => {
         <div className="auth-form">
           <h1>Login</h1>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="form-group">
-              <input
-                type="email"
-                id="email"
-                className="form-control"
+            <TextField.Root size="3" radius="full" className="form-group">
+              <TextField.Slot>
+                <EnvelopeClosedIcon height={16} width={16} />
+              </TextField.Slot>
+              <TextField.Input
                 placeholder="Email"
+                type="email"
                 {...register("email", { required: true })}
               />
-            </div>
-            <div className="form-group">
-              <input
-                type="password"
-                id="password"
-                className="form-control"
+            </TextField.Root>
+            <TextField.Root size="3" radius="full" className="form-group">
+              <TextField.Slot>
+                <LockClosedIcon height={16} width={16} />
+              </TextField.Slot>
+              <TextField.Input
                 placeholder="Password"
+                type="password"
                 {...register("password", { required: true })}
               />
-            </div>
-            <button className="btn btn-primary" type="submit">
+            </TextField.Root>
+            <Button
+              radius="full"
+              size={"3"}
+              color="blue"
+              variant="solid"
+              className="btn"
+            >
               Login
-            </button>
+            </Button>
             <p>
               If you don't have an account, <Link to="/sign-up">Sign Up</Link>
             </p>

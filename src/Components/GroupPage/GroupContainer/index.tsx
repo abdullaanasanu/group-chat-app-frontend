@@ -1,11 +1,11 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import GroupChat from "./GroupChat";
 import GroupUsers from "./GroupUsers";
-import io, {Socket} from "socket.io-client";
+import io from "socket.io-client";
 import { useUser } from "../../../Contexts/userContext";
 import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { addChat, addParticipants, removeParticipants, setChatList, setParticipantsList } from "../../../Redux/group/chatSlice";
+import { useDispatch } from "react-redux";
+import { addChat, addParticipants, removeParticipants } from "../../../Redux/group/chatSlice";
 
 const GroupContainer = () => {
   const id = useParams().id;

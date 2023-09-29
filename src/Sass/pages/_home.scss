@@ -55,4 +55,13 @@
     @include responsive($mobile-large){
         margin: 10px 20px;
     }   
+
+    // Radix UI changes
+    .group-card{
+        padding: 7px 10px;
+
+        .title{
+            margin-bottom: 10px;
+        }
+    }
 }

@@ -13,7 +13,7 @@ const GroupUsers = () => {
     <div className="group-users">
       {participants.map((participant: IChatParticipant) => (
         <>
-          {participant.user._id != user.id && (
+          {participant.user._id !== user.id && (
             <User key={participant._id} participant={participant} />
           )}
         </>

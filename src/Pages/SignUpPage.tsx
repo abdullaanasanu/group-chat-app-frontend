@@ -5,6 +5,8 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useUser } from "../Contexts/userContext";
 import toast from "react-hot-toast";
+import { Avatar, Button, TextField } from "@radix-ui/themes";
+import { EnvelopeClosedIcon, AvatarIcon, LockClosedIcon } from "@radix-ui/react-icons";
 
 interface ISignUpForm {
   name: string;
@@ -17,8 +19,6 @@ const SignUpPage = () => {
   const {
     register,
     handleSubmit,
-    watch,
-    formState: { errors },
   } = useForm<ISignUpForm>();
   const { isLoggedIn, login } = useUser();
 
@@ -48,44 +48,48 @@ const SignUpPage = () => {
         <div className="auth-form">
           <h1>Sign Up</h1>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="form-group">
-              <input
-                type="text"
-                id="name"
-                className="form-control"
+            <TextField.Root size="3" radius="full" className="form-group">
+              <TextField.Slot>
+                <AvatarIcon height={16} width={16} />
+              </TextField.Slot>
+              <TextField.Input
                 placeholder="Name"
+                type="text"
                 {...register("name", { required: true })}
               />
-            </div>
-            <div className="form-group">
-              <input
-                type="email"
-                id="email"
-                className="form-control"
+            </TextField.Root>
+            <TextField.Root size="3" radius="full" className="form-group">
+              <TextField.Slot>
+                <EnvelopeClosedIcon height={16} width={16} />
+              </TextField.Slot>
+              <TextField.Input
                 placeholder="Email"
+                type="email"
                 {...register("email", { required: true })}
               />
-            </div>
-            <div className="form-group">
-              <input
-                type="password"
-                id="password"
-                className="form-control"
+            </TextField.Root>
+            <TextField.Root size="3" radius="full" className="form-group">
+              <TextField.Slot>
+                <LockClosedIcon height={16} width={16} />
+              </TextField.Slot>
+              <TextField.Input
                 placeholder="Password"
+                type="password"
                 {...register("password", { required: true })}
               />
-            </div>
-            <button className="btn btn-primary" type="submit">
+            </TextField.Root>
+            <Button
+              radius="full"
+              size={"3"}
+              color="blue"
+              variant="solid"
+              className="btn"
+            >
               Sign Up
-            </button>
+            </Button>
             <p>
               If you already have an account, <Link to="/login">Login</Link>
             </p>
-            {/* <Link to="/login">
-              <button className="btn btn-primary-rounded" type="button">
-                Login
-              </button>
-            </Link> */}
           </form>
         </div>
       </div>

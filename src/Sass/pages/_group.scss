@@ -1,8 +1,5 @@
 .group-info {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 20px;
+  padding: 8px 20px;
   background-color: $secondary-color;
   color: $text-white;
 
@@ -20,7 +17,7 @@
 
   .group-chat {
     width: 100%;
-    height: calc(100dvh - 45px - 66px);
+    height: calc(100dvh - 45px - 61px);
     position: relative;
 
     .chat-input {

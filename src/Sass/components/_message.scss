@@ -2,14 +2,13 @@
   height: calc(100dvh - 45px - 66px - 90px);
   overflow-y: scroll;
   padding: 20px 20px 20px 20px;
+  background-color: $body-bg-color;
   @include custom-scrollbar;
   // display: flex;
   // flex-direction: column;
   // justify-content: flex-end;
 
   .chat-message {
-    display: flex;
-    align-items: flex-start;
     margin-bottom: 15px;
 
     .user-avatar {
@@ -52,6 +51,29 @@
           font-weight: 600;
         }
       }
+    }
+
+    .chat-message-card{
+      max-width: 70%;
+      padding: 0px 4px;
+      border-top-left-radius: 0;
+
+      .message-text{
+        margin-top: 10px;
+      }
+
+      @include responsive($mobile-large){
+        max-width: 95%;
+      }
+    }
+  }
+
+  .send-card{
+    background-color: $primary-color !important;
+    color: $text-white;
+
+    .time{
+      color: $message-send-time-text;
     }
   }
 

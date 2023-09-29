@@ -1,6 +1,9 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useUser } from "../../Contexts/userContext";
+import { Button } from "@radix-ui/themes";
+import { ExitIcon } from "@radix-ui/react-icons";
+
 
 const Navbar = () => {
   const { isLoggedIn, logout } = useUser();
@@ -17,19 +20,30 @@ const Navbar = () => {
           <>
             {location.pathname === "/sign-up" && (
               <Link to="/login">
-                <button className="btn btn-primary">Login</button>
+                <Button radius="full" size={"3"} color="blue" variant="solid" >
+                  Login
+                </Button>
               </Link>
             )}
             {location.pathname === "/login" && (
               <Link to="/sign-up">
-                <button className="btn btn-primary">Sign Up</button>
+                <Button radius="full" size={"3"} color="blue" variant="solid" >
+                  Sign Up
+                </Button>
               </Link>
             )}
           </>
         ) : (
-          <button className="btn btn-primary-rounded" onClick={logout}>
+          <Button
+            radius="full"
+            size={"3"}
+            variant="outline"
+            className="btn"
+            onClick={() => logout()}
+          >
+            <ExitIcon />
             Logout
-          </button>
+          </Button>
         )}
       </div>
     </nav>
