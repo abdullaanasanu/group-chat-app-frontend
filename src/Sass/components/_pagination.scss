@@ -1,0 +1,19 @@
+
+.rc-pagination{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+
+    .rc-pagination-item{
+        margin: 0 5px;
+
+        &-active{
+            button{
+                background-color: $primary-color;
+                border-color: $primary-color;
+                color: $text-white;
+            }
+        }
+    }
+}

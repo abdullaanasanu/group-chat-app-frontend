@@ -15,10 +15,12 @@ import { Provider } from "react-redux";
 import store from "./Redux/store";
 import ProctectRoutes from "./Components/ProctectRoutes";
 import { Toaster } from "react-hot-toast";
+import { RecoilRoot } from 'recoil';
 
 const App = () => {
   return (
     <Provider store={store}>
+      <RecoilRoot>
       <Router>
         <UserProvider>
           <Theme appearance="light">
@@ -38,6 +40,7 @@ const App = () => {
           </Theme>
         </UserProvider>
       </Router>
+      </RecoilRoot>
     </Provider>
   );
 };

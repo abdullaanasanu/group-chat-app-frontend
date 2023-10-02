@@ -5,13 +5,19 @@ import io from "socket.io-client";
 import { useUser } from "../../../Contexts/userContext";
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { addChat, addParticipants, removeParticipants } from "../../../Redux/group/chatSlice";
+// import { addParticipants, removeParticipants } from "../../../Redux/group/chatSlice";
+import { useSetRecoilState, useRecoilValue } from "recoil";
+import { addChatMessage, addParticipant, removeParticipant } from "../../../Recoil/selectors/chat";
+import { chatListState } from "../../../Recoil/atoms/chat";
 
 const GroupContainer = () => {
   const id = useParams().id;
   const { token } = useUser();
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
+  const addChat = useSetRecoilState(addChatMessage);
+  const addMember = useSetRecoilState(addParticipant);
+  const removeMember = useSetRecoilState(removeParticipant);
 
   const [socketConnected, setSocketConnected] = useState<boolean>(false);
   const [socket, setSocket] = useState<any>(null);
@@ -29,15 +35,20 @@ const GroupContainer = () => {
       setSocketConnected(true);
     });
     socket.on("new message", (message: IChatMessage) => {
-      dispatch(addChat(message));
+      // dispatch(addChat(message));
+      addChat(message);
     });
     socket.on("member joined", (participant: IChatParticipant) => {
-      dispatch(addParticipants(participant));
+      // dispatch(addParticipants(participant));
+      console.log("pp",participant);
+      
+      addMember(participant);
     });
     socket.on("member left", (participant: IChatParticipant) => {
-      dispatch(
-        removeParticipants(participant)
-      );
+      removeMember(participant);
+      // dispatch(
+      //   removeParticipants(participant)
+      // );
     });
     return () => {
       socket.disconnect();

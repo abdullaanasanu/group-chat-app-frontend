@@ -10,10 +10,25 @@ import {
   setGroupInfo,
   setParticipantsList,
 } from "../Redux/group/chatSlice";
+import { useRecoilState } from "recoil";
+import {
+  chatListEndState,
+  chatListPageState,
+  chatListState,
+  groupInfoState,
+  participantListState,
+} from "../Recoil/atoms/chat";
+import { set } from "react-hook-form";
 
 const GroupPage = () => {
   const { id } = useParams<{ id: string }>();
-  const dispatch = useDispatch();
+  const [groupInfo, setGroupInfo] = useRecoilState(groupInfoState);
+  const [chatList, setChatList] = useRecoilState(chatListState);
+  const [participantsList, setParticipantsList] =
+    useRecoilState(participantListState);
+  const [chatListPage, setChatListPage] = useRecoilState(chatListPageState);
+  const [chatListEnd, setChatListEnd] = useRecoilState(chatListEndState);
+  // const dispatch = useDispatch();
 
   const { token } = useUser();
 
@@ -23,6 +38,10 @@ const GroupPage = () => {
 
   const fetchGroupInfo = async () => {
     try {
+      setGroupInfo(null);
+      setChatList([]);
+      setParticipantsList([]);
+      setChatListPage(1);
       const response = await axios.get(
         process.env.REACT_APP_API_URL + "/group/" + id,
         {
@@ -32,9 +51,20 @@ const GroupPage = () => {
         }
       );
       console.log(response);
-      dispatch(setGroupInfo(response.data.group));
-      dispatch(setChatList(response.data.group.chat));
-      dispatch(setParticipantsList(response.data.group.participants));
+      setGroupInfo(response.data.group);
+      setChatList(response.data.group.chat);
+      setParticipantsList(response.data.group.participants);
+      setChatListPage(1);
+
+      if (response.data.group.chat.length % 10 !== 0) {
+        // setChatListPage(chatListPage-1)
+        setChatListEnd(true);
+      } else {
+        setChatListEnd(false);
+      }
+      // dispatch(setGroupInfo(response.data.group));
+      // dispatch(setChatList(response.data.group.chat));
+      // dispatch(setParticipantsList(response.data.group.participants));
     } catch (error: any) {
       console.log(error);
     }
